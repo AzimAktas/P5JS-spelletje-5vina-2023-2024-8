@@ -17,12 +17,21 @@ class Raster {
     stroke('grey');
     for (var rij = 0;rij < this.aantalRijen;rij++) {
       for (var kolom = 0;kolom < this.aantalKolommen;kolom++) {
-        rect(kolom*this.celGrootte,rij*this.celGrootte,this.celGrootte,this.celGrootte);
+
+ if (rij == 5 || kolom == 0) {
+   fill ("orange");
+ } else 
+ {noFill();
+      }
+      
+        
+rect(kolom*this.celGrootte,rij*this.celGrootte,this.celGrootte,this.celGrootte);
       }
     }
-    pop();
+     pop();
   }
 }
+
 
 class Bom {
   constructor() {
@@ -35,6 +44,7 @@ class Bom {
   }
 }
 
+
 class Appel {
   constructor() {
     this.x = floor(random(1,raster.aantalKolommen))*raster.celGrootte;
@@ -43,6 +53,11 @@ class Appel {
   
   toon() {
     image(appel,this.x,this.y,raster.celGrootte,raster.celGrootte);
+
+beweeg() {
+    this.x += floor(random(-1,2))*this.stapGrootte;
+    this.y += floor(random(-1,2))*this.stapGrootte;
+}
   }
 }
 
