@@ -1,5 +1,3 @@
-var mijnArray = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550];
-
 class Raster {
   constructor(r,k) {
     this.aantalRijen = r;
@@ -24,38 +22,14 @@ class Raster {
   }
 }
 
-class Bom {
-  constructor() {
-    this.x = floor(random(9,raster.aantalKolommen))*raster.celGrootte;
-    this.y = floor(random(0,raster.aantalRijen))*raster.celGrootte;
-  }
-  
-  toon() {
-    image(bomPlaatje,this.x,this.y,raster.celGrootte,raster.celGrootte);
-  }
-}
-
-class Appel {
-  constructor() {
-    this.x = floor(random(1,raster.aantalKolommen))*raster.celGrootte;
-    this.y = floor(random(0,raster.aantalRijen))*raster.celGrootte;
-  }
-  
-  toon() {
-    image(appel,this.x,this.y,raster.celGrootte,raster.celGrootte);
-  }
-}
-
 class Jos {
   constructor() {
-    this.x = 0;
-    this.y = random (mijnArray); 
+    this.x = 400;
+    this.y = 300;
     this.animatie = [];
     this.frameNummer =  3;
     this.stapGrootte = null;
     this.gehaald = false;
-    this.aanDeBeurt = true;
-    this.staOpBom = false;
   }
   
   beweeg() {
@@ -92,12 +66,6 @@ class Jos {
       return false;
     }
   }
-
-  
-  staatOp (bommenLijst) {
-
-    return this.staOpBom;
-  }  
   
   toon() {
     image(this.animatie[this.frameNummer],this.x,this.y,raster.celGrootte,raster.celGrootte);
@@ -118,7 +86,8 @@ class Vijand {
 
     this.x = constrain(this.x,0,canvas.width - raster.celGrootte);
     this.y = constrain(this.y,0,canvas.height - raster.celGrootte);
-  } 
+  }
+  
   toon() {
     image(this.sprite,this.x,this.y,raster.celGrootte,raster.celGrootte);
   }
@@ -126,11 +95,7 @@ class Vijand {
 
 function preload() {
   brug = loadImage("images/backgrounds/dame_op_brug_1800.jpg");
-  bomPlaatje = loadImage("images/sprites/bom_100px.png");
-  appel = loadImage ("images/sprites/appel_1.png");
 }
-
-var bommenArray = [];
 
 function setup() {
   canvas = createCanvas(900,600);
@@ -142,13 +107,6 @@ function setup() {
   raster = new Raster(12,18);
   
   raster.berekenCelGrootte();
-  appel1 = new Appel();
-  bom1 = new Bom();
-  bom2 = new Bom();
-  bom3 = new Bom();
-  bom4 = new Bom();
-  bom5 = new Bom();
-  
   
   eve = new Jos();
   eve.stapGrootte = 1*raster.celGrootte;
@@ -175,15 +133,12 @@ function draw() {
   eve.toon();
   alice.toon();
   bob.toon();
-  bom1.toon();
-  bom2.toon();
-  bom3.toon();
-  bom4.toon();
-  bom5.toon();
-  appel1.toon();
+  
+  if (eve.wordtGeraakt(alice) || eve.wordtGeraakt(bob)) {
+    noLoop();
+  }
 
-
-if (eve.wordtGeraakt(alice) || eve.wordtGeraakt(bob) || eve.wordtGeraakt(bom1)|| eve.wordtGeraakt(bom2)|| eve.wordtGeraakt(bom3) || eve.wordtGeraakt(bom4)|| eve.wordtGeraakt(bom5)) {
+  if (eve.wordtGeraakt(alice) || eve.wordtGeraakt(bob) || eve.staatOp(bommenArray)) {
     background('red');
     fill('white');
     text("Je hebt verloren!",30,300);

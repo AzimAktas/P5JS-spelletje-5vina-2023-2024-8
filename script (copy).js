@@ -35,16 +35,6 @@ class Bom {
   }
 }
 
-class Appel {
-  constructor() {
-    this.x = floor(random(1,raster.aantalKolommen))*raster.celGrootte;
-    this.y = floor(random(0,raster.aantalRijen))*raster.celGrootte;
-  }
-  
-  toon() {
-    image(appel,this.x,this.y,raster.celGrootte,raster.celGrootte);
-  }
-}
 
 class Jos {
   constructor() {
@@ -127,7 +117,6 @@ class Vijand {
 function preload() {
   brug = loadImage("images/backgrounds/dame_op_brug_1800.jpg");
   bomPlaatje = loadImage("images/sprites/bom_100px.png");
-  appel = loadImage ("images/sprites/appel_1.png");
 }
 
 var bommenArray = [];
@@ -142,13 +131,11 @@ function setup() {
   raster = new Raster(12,18);
   
   raster.berekenCelGrootte();
-  appel1 = new Appel();
   bom1 = new Bom();
   bom2 = new Bom();
   bom3 = new Bom();
   bom4 = new Bom();
   bom5 = new Bom();
-  
   
   eve = new Jos();
   eve.stapGrootte = 1*raster.celGrootte;
@@ -180,7 +167,6 @@ function draw() {
   bom3.toon();
   bom4.toon();
   bom5.toon();
-  appel1.toon();
 
 
 if (eve.wordtGeraakt(alice) || eve.wordtGeraakt(bob) || eve.wordtGeraakt(bom1)|| eve.wordtGeraakt(bom2)|| eve.wordtGeraakt(bom3) || eve.wordtGeraakt(bom4)|| eve.wordtGeraakt(bom5)) {
