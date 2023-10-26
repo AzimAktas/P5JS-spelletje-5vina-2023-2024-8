@@ -22,13 +22,12 @@ class Raster {
     for (var rij = 0;rij < this.aantalRijen;rij++) {
       for (var kolom = 0;kolom < this.aantalKolommen;kolom++) {
 
- if (rij == 0 || kolom == 0) {
+ if (rij == 2|| kolom == 2) {
    fill ("orange");
  } else 
  {noFill();
       }
       
-        
 rect(kolom*this.celGrootte,rij*this.celGrootte,this.celGrootte,this.celGrootte);
       }
     }
@@ -36,13 +35,12 @@ rect(kolom*this.celGrootte,rij*this.celGrootte,this.celGrootte,this.celGrootte);
   }
 }
 
-
 class Bom {
   constructor() {
     this.x = floor(random(9,raster.aantalKolommen))*raster.celGrootte;
     this.y = floor(random(0,11,raster.aantalRijen))*raster.celGrootte;
     this.snelheid = random (snelheid);
-     this.yRichting = 5;
+    this.yRichting = 5;
   }
  
   beweeg() {
@@ -58,17 +56,6 @@ class Bom {
     image(bomPlaatje,this.x,this.y,raster.celGrootte,raster.celGrootte);
   }
 }
-
-//class Levens {
- // constructor() {
-  //  this.x = 100;
-  //  this.y = 100;
-  //}
-//toon() {
-  //image(levenPlaatje,this.x,this.y,raster.celGrootte,raster.celGrootte);
-//}
-
-//}
 
 class Appel {
   constructor() {
@@ -188,7 +175,7 @@ function setup() {
   bom4 = new Bom();
   bom5 = new Bom();
 
-   bommen.push(bom1, bom2, bom3, bom4, bom5);
+  bommen.push(bom1, bom2, bom3, bom4, bom5);
   
   eve = new Jos();
   eve.stapGrootte = 1*raster.celGrootte;
@@ -203,12 +190,7 @@ function setup() {
 
   bob = new Vijand(600,400);
   bob.stapGrootte = 1*eve.stapGrootte;
-  bob.sprite = loadImage("images/sprites/Bob100px/Bob.png");
-  
-  //bom = new Vijand();
-  //bom.stapGrootte = 10;
-  //bom.sprite = loadImage("images/sprites/bom_1.png");
-
+  bob.sprite = loadImage("images/sprites/Bob100px/Bob.png")
 }
 
 function draw() {
@@ -228,19 +210,20 @@ function draw() {
   appel1.toon();
 
 fill('black');
-  text("Levens:" + playerLives ,0,80)
+  textSize(50);
+  text("Levens:" + playerLives ,0,50)
   
 if(eve.RaaktAppel(appel1)) {
-    appel1.x = -50;
+    appel1.x = +1000;
   playerLives +=1;
   }
 
-  
 if (eve.wordtGeraakt(alice) || eve.wordtGeraakt(bob) || eve.wordtGeraakt(bom1)|| eve.wordtGeraakt(bom2)|| eve.wordtGeraakt(bom3) || eve.wordtGeraakt(bom4)|| eve.wordtGeraakt(bom5)) {
     playerLives -= 1;
   if (playerLives <= 0) {
     background('red');
     fill('white');
+    textSize(90);
     text("Hahahahaha noob!",30,300);
     noLoop();
   }
@@ -248,8 +231,8 @@ if (eve.wordtGeraakt(alice) || eve.wordtGeraakt(bob) || eve.wordtGeraakt(bom1)||
   if (eve.gehaald) {
     background('green');
     fill('white');
+    textSize(90);
     text("Je hebt gewonnen!",30,300);
     noLoop();
   }
-  
 }
