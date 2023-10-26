@@ -1,8 +1,8 @@
 var mijnArray = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550];
 
-var playerLives = 1; 
+var playerLives = 2; 
 
-var snelheid = [1, 2, 2.5, 3.125, 5, 6.25, 10, 12.5]
+var snelheid = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 
 class Raster {
   constructor(r,k) {
@@ -22,7 +22,7 @@ class Raster {
     for (var rij = 0;rij < this.aantalRijen;rij++) {
       for (var kolom = 0;kolom < this.aantalKolommen;kolom++) {
 
- if (rij == 10|| kolom == 2) {
+ if (rij == 2|| kolom == 2) {
    fill ("orange");
  } else 
  {noFill();
@@ -40,7 +40,7 @@ class Bom {
     this.x = floor(random(9,raster.aantalKolommen))*raster.celGrootte;
     this.y = floor(random(0,11,raster.aantalRijen))*raster.celGrootte;
     this.snelheid = random (snelheid);
-    this.yRichting = 2;
+    this.yRichting = 5;
   }
  
   beweeg() {
@@ -151,9 +151,9 @@ class Vijand {
 }
 
 function preload() {
-  brug = loadImage("Screenshot_20231026_162313_Google.jpg");
-  bomPlaatje = loadImage("Screenshot_20231026_151423_Google.png");
-  appel = loadImage ("Screenshot_20231026_150012_Google.png");
+  brug = loadImage("images/backgrounds/dame_op_brug_1800.jpg");
+  bomPlaatje = loadImage("images/sprites/bom_100px.png");
+  appel = loadImage ("images/sprites/appel_1.png");
     }
 
 var bommen = [];
@@ -169,29 +169,28 @@ function setup() {
   
   raster.berekenCelGrootte();
   appel1 = new Appel();
-  appel2 = new Appel();
   bom1 = new Bom();
   bom2 = new Bom();
   bom3 = new Bom();
   bom4 = new Bom();
   bom5 = new Bom();
 
-  bommen.push(bom1, bom2, bom3, bom4, bom5,);
+  bommen.push(bom1, bom2, bom3, bom4, bom5);
   
   eve = new Jos();
   eve.stapGrootte = 1*raster.celGrootte;
   for (var b = 0;b < 6;b++) {
-    frameEve = loadImage("Screenshot_20231026_153405_Google.png");
+    frameEve = loadImage("images/sprites/Eve100px/Eve_" + b + ".png");
     eve.animatie.push(frameEve);
   }
   
   alice = new Vijand(700,200);
   alice.stapGrootte = 1*eve.stapGrootte;
-  alice.sprite = loadImage("Screenshot_20231026_162118_Google.png");
+  alice.sprite = loadImage("images/sprites/Alice100px/Alice.png");
 
   bob = new Vijand(600,400);
   bob.stapGrootte = 1*eve.stapGrootte;
-  bob.sprite = loadImage("Screenshot_20231026_162118_Google.png")
+  bob.sprite = loadImage("images/sprites/Bob100px/Bob.png")
 }
 
 function draw() {
@@ -210,31 +209,30 @@ function draw() {
   }
   appel1.toon();
 
-fill('white');
+fill('black');
   textSize(50);
   text("Levens:" + playerLives ,0,50)
   
 if(eve.RaaktAppel(appel1)) {
     appel1.x = +1000;
   playerLives +=1;
-}
+  }
 
-if (eve.wordtGeraakt(alice) || eve.wordtGeraakt(bob) || eve.wordtGeraakt(bom1)|| eve.wordtGeraakt(bom2)|| eve.wordtGeraakt(bom3)|| eve.wordtGeraakt(bom4)|| eve.wordtGeraakt(bom5)) {
+if (eve.wordtGeraakt(alice) || eve.wordtGeraakt(bob) || eve.wordtGeraakt(bom1)|| eve.wordtGeraakt(bom2)|| eve.wordtGeraakt(bom3) || eve.wordtGeraakt(bom4)|| eve.wordtGeraakt(bom5)) {
     playerLives -= 1;
-
   if (playerLives <= 0) {
     background('red');
     fill('white');
-    textSize(150);
-    text("Puta madrid!",30,300);
+    textSize(90);
+    text("Hahahahaha noob!",30,300);
     noLoop();
   }
 }
   if (eve.gehaald) {
     background('green');
     fill('white');
-    textSize(120);
-    text("The championsss!",30,300);
+    textSize(90);
+    text("Je hebt gewonnen!",30,300);
     noLoop();
   }
 }
