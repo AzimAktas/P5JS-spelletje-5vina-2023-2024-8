@@ -1,6 +1,6 @@
 var mijnArray = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550];
 
-//let playerLives = 3; 
+var playerLives = 2; 
 
 class Raster {
   constructor(r,k) {
@@ -39,18 +39,16 @@ class Bom {
   constructor() {
     this.x = floor(random(9,raster.aantalKolommen))*raster.celGrootte;
     this.y = floor(random(0,11,raster.aantalRijen))*raster.celGrootte;
-    this.snelheid = 4;
-    this.yRichting = 2;
+    this.snelheid = 5;
+    this.yRichting = 5;
   }
  
   beweeg() {
     this.y += this.snelheid * this.yRichting;
 
-  
     if (this.y >= canvas.height - raster.celGrootte || this.y <= 0) {
       this.yRichting *= -1;
     }
-
     this.x = constrain(this.x, 0, canvas.width - raster.celGrootte);
   }
 
@@ -58,11 +56,12 @@ class Bom {
     image(bomPlaatje,this.x,this.y,raster.celGrootte,raster.celGrootte);
   }
 }
+
 //class Levens {
  // constructor() {
   //  this.x = 100;
-   // this.y = 100;
- // }
+  //  this.y = 100;
+  //}
 //toon() {
   //image(levenPlaatje,this.x,this.y,raster.celGrootte,raster.celGrootte);
 //}
@@ -128,12 +127,6 @@ class Jos {
     }
   }
 
-  
-  staatOp (bommenLijst) {
-
-    return this.staOpBom;
-  }  
-
   RaaktAppel(appel) {
     if (this.x == appel.x && this.y == appel.y) {
       return true;
@@ -192,6 +185,7 @@ function setup() {
   bom3 = new Bom();
   bom4 = new Bom();
   bom5 = new Bom();
+
   bommen.push(bom1, bom2, bom3, bom4, bom5);
   
   eve = new Jos();
@@ -209,9 +203,9 @@ function setup() {
   bob.stapGrootte = 1*eve.stapGrootte;
   bob.sprite = loadImage("images/sprites/Bob100px/Bob.png");
   
-  //bom1 = new Vijand();
-  //bom1.stapGrootte = 10;
-  //bom1.sprite = loadImage("images/sprites/bom_100px.png");
+  //bom = new Vijand();
+  //bom.stapGrootte = 10;
+  //bom.sprite = loadImage("images/sprites/bom_1.png");
 
 }
 
@@ -230,19 +224,26 @@ function draw() {
     bom.toon();
   }
   appel1.toon();
+
+fill('black');
+  text("Levens:" + playerLives ,0,80)
   
 if(eve.RaaktAppel(appel1)) {
     appel1.x = -50;
+  playerLives +=1;
   }
 
   
 if (eve.wordtGeraakt(alice) || eve.wordtGeraakt(bob) || eve.wordtGeraakt(bom1)|| eve.wordtGeraakt(bom2)|| eve.wordtGeraakt(bom3) || eve.wordtGeraakt(bom4)|| eve.wordtGeraakt(bom5)) {
+    playerLives -= 1;
+  eve = (this.x = 0, this.y = random (mijnArray))
+  if (playerLives <= 0) {
     background('red');
     fill('white');
     text("Hahahahaha noob!",30,300);
     noLoop();
   }
-  
+}
   if (eve.gehaald) {
     background('green');
     fill('white');
