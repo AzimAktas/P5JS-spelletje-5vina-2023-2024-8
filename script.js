@@ -2,6 +2,8 @@ var mijnArray = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550];
 
 var playerLives = 2; 
 
+var snelheid = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+
 class Raster {
   constructor(r,k) {
     this.aantalRijen = r;
@@ -20,7 +22,7 @@ class Raster {
     for (var rij = 0;rij < this.aantalRijen;rij++) {
       for (var kolom = 0;kolom < this.aantalKolommen;kolom++) {
 
- if (rij == 5 || kolom == 0) {
+ if (rij == 0 || kolom == 0) {
    fill ("orange");
  } else 
  {noFill();
@@ -39,8 +41,8 @@ class Bom {
   constructor() {
     this.x = floor(random(9,raster.aantalKolommen))*raster.celGrootte;
     this.y = floor(random(0,11,raster.aantalRijen))*raster.celGrootte;
-    this.snelheid = 5;
-    this.yRichting = 5;
+    this.snelheid = random (snelheid);
+     this.yRichting = 5;
   }
  
   beweeg() {
@@ -186,7 +188,7 @@ function setup() {
   bom4 = new Bom();
   bom5 = new Bom();
 
-  bommen.push(bom1, bom2, bom3, bom4, bom5);
+   bommen.push(bom1, bom2, bom3, bom4, bom5);
   
   eve = new Jos();
   eve.stapGrootte = 1*raster.celGrootte;
@@ -236,7 +238,6 @@ if(eve.RaaktAppel(appel1)) {
   
 if (eve.wordtGeraakt(alice) || eve.wordtGeraakt(bob) || eve.wordtGeraakt(bom1)|| eve.wordtGeraakt(bom2)|| eve.wordtGeraakt(bom3) || eve.wordtGeraakt(bom4)|| eve.wordtGeraakt(bom5)) {
     playerLives -= 1;
-  eve = (this.x = 0, this.y = random (mijnArray))
   if (playerLives <= 0) {
     background('red');
     fill('white');
