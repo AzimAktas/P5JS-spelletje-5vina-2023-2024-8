@@ -1,10 +1,8 @@
 var mijnArray = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550];
 
-var playerLives = 2; 
+var playerLives = 1; 
 
 var snelheid = [1, 2, 2.5, 3.125, 5, 6.25, 10, 12.5]
-
-var brug = ["Screenshot_20231026_162313_Google.jpg" , "images/backgrounds/abstract.jpg" ,"images/backgrounds/blurred_gold_L.jpg" ,"images/backgrounds/boom_mist.jpg" ,"images/backgrounds/city_skyline.png"]
 
 class Raster {
   constructor(r,k) {
@@ -24,7 +22,7 @@ class Raster {
     for (var rij = 0;rij < this.aantalRijen;rij++) {
       for (var kolom = 0;kolom < this.aantalKolommen;kolom++) {
 
- if (rij == 0 || rij == 11|| kolom == 0 || kolom == 17) {
+ if (rij == 10|| kolom == 2) {
    fill ("orange");
  } else 
  {noFill();
@@ -73,17 +71,14 @@ class Appel {
 
 class Jos {
   constructor() {
-    this.startX = 0;
-    this.startY = random (mijnArray); 
-    this.x = this.startX;
-    this.y = this.startY;
+    this.x = 0;
+    this.y = random (mijnArray); 
     this.animatie = [];
     this.frameNummer =  3;
     this.stapGrootte = null;
     this.gehaald = false;
     this.aanDeBeurt = true;
     this.staOpBom = false;
-    
   }
   
   beweeg() {
@@ -114,8 +109,6 @@ class Jos {
   
   wordtGeraakt(vijand) {
     if (this.x == vijand.x && this.y == vijand.y) {
-      this.x = this.startX;
-      this.y = this.startY;
       return true;
     }
     else {
@@ -158,7 +151,7 @@ class Vijand {
 }
 
 function preload() {
-  brug = loadImage(random (brug));
+  brug = loadImage("Screenshot_20231026_162313_Google.jpg");
   bomPlaatje = loadImage("Screenshot_20231026_151423_Google.png");
   appel = loadImage ("Screenshot_20231026_150012_Google.png");
     }
@@ -228,19 +221,19 @@ if(eve.RaaktAppel(appel1)) {
 
 if (eve.wordtGeraakt(alice) || eve.wordtGeraakt(bob) || eve.wordtGeraakt(bom1)|| eve.wordtGeraakt(bom2)|| eve.wordtGeraakt(bom3)|| eve.wordtGeraakt(bom4)|| eve.wordtGeraakt(bom5)) {
     playerLives -= 1;
-  
+
   if (playerLives <= 0) {
     background('red');
     fill('white');
-    textSize(120);
-    text("Noooooob",30,300);
+    textSize(150);
+    text("Puta madrid!",30,300);
     noLoop();
   }
 }
   if (eve.gehaald) {
     background('green');
     fill('white');
-    textSize(100);
+    textSize(120);
     text("The championsss!",30,300);
     noLoop();
   }
